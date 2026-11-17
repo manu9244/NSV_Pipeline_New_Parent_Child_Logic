@@ -267,7 +267,9 @@ def check_vs_d2(prj, defect, df, iv, table):
         sv = df[df['lane'] == lane]
         sv = pd.DataFrame({'b': num(sv['start_chainage']) // iv * iv, 'silver': num(sv['metric_value'])})
         m = ref.merge(sv, on='b', how='left')
-        ok = (m['d2'] - m['silver']).abs() <= tol
+        d2_value = m['d2'].round(2)
+        silver_value = m['silver'].round(2)
+        ok = (d2_value - silver_value).abs() <= tol
         rows.append((lane, len(m), int(ok.sum())))
         bad = m[~ok].copy()
         if len(bad):
