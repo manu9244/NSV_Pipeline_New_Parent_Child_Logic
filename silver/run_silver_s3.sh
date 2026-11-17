@@ -21,7 +21,7 @@ set -uo pipefail
 # ── defaults ─────────────────────────────────────────────────────────────────
 BUCKET="${BUCKET:-dhms-new-stgae}"                         # env overrides: set by ../run_e2e.sh from pipeline.env
 BRONZE_PREFIX="${BRONZE_PREFIX:-nsv_extraction_new}/bronze/nsv"   # bronze writes <prefix>/bronze/nsv/zone=...
-SILVER_PREFIX="${SILVER_PREFIX:-nsv-silver}"
+SILVER_PREFIX="${SILVER_PREFIX:-DHMS/NSV/}"
 REGION="${REGION:-ap-south-1}"
 ZONE="A"
 PHASE="2"
