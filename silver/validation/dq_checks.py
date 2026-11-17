@@ -360,7 +360,9 @@ def _value_and_breach_lanes(prj, tables, summary, mism, lanes, reversed_lanes):
                 if not crack100:                # cracking values were checked in _crack_checks
                     sb = _silver_bins(prj, tables, defect, std, lane, g)
                     j = ref.join(sb, on='bin', how='left')
-                    diff = (j['d2'] - num(j['silver'])).abs()
+                    d2_value = j['d2'].round(2)
+                    silver_value = num(j['silver']).round(2)
+                    diff = (d2_value - silver_value).abs()
                     ok = diff <= _tolerance(defect, ref['d2'])
                     if defect == 'roughness':
                         ok = ok | _roughness_iri_ok(j['d2'], num(j['silver']))
