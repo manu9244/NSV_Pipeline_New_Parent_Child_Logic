@@ -165,7 +165,9 @@ def _crack_checks(prj, tables, summary, mism, std, lane, ref, skipped, gi=100):
                  .agg(_wd=('_wd', 'sum'), _w=('_w', 'sum')))
             r['d2'] = r['_wd'] / r['_w']
         j = r.join(_silver_bins(prj, tables, 'cracking', std, lane, g, table), on='bin', how='left')
-        ok = (j['d2'] - num(j['silver'])).abs() <= tol
+        d2_value = j['d2'].round(2)
+        silver_value = num(j['silver']).round(2)
+        ok = (d2_value - silver_value).abs() <= tol
         summary.append(_row('value', std, 'cracking', lane, level, len(j), int(ok.sum()), skipped, note=table))
         for _, q in j[~ok].iterrows():
             mism.append({'check': 'value', 'std': std, 'defect': 'cracking', 'lane': lane, 'level': level,
